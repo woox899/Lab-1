@@ -15,6 +15,7 @@
 		D18C75B62AE81F89004F41CF /* MainInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75B52AE81F89004F41CF /* MainInformationTableViewCell.swift */; };
 		D18C75B82AE82010004F41CF /* RulesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75B72AE82010004F41CF /* RulesTableViewCell.swift */; };
 		D18C75BA2AEB9822004F41CF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75B92AEB9822004F41CF /* Model.swift */; };
+		D18C75BC2AF11C39004F41CF /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D18C75BB2AF11C39004F41CF /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		D18C75B52AE81F89004F41CF /* MainInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInformationTableViewCell.swift; sourceTree = "<group>"; };
 		D18C75B72AE82010004F41CF /* RulesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesTableViewCell.swift; sourceTree = "<group>"; };
 		D18C75B92AEB9822004F41CF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		D18C75BB2AF11C39004F41CF /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				D18C75B52AE81F89004F41CF /* MainInformationTableViewCell.swift */,
 				D18C75B72AE82010004F41CF /* RulesTableViewCell.swift */,
 				D18C75B92AEB9822004F41CF /* Model.swift */,
+				D18C75BB2AF11C39004F41CF /* .gitignore */,
 				D18C75AA2AE6DAC9004F41CF /* Assets.xcassets */,
 				D18C75AC2AE6DAC9004F41CF /* LaunchScreen.storyboard */,
 				D18C75AF2AE6DAC9004F41CF /* Info.plist */,
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D18C75AE2AE6DAC9004F41CF /* LaunchScreen.storyboard in Resources */,
+				D18C75BC2AF11C39004F41CF /* .gitignore in Resources */,
 				D18C75AB2AE6DAC9004F41CF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
