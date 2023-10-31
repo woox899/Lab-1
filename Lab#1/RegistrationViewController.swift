@@ -9,23 +9,17 @@ import UIKit
 
 final class RegistrationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    private let authorizationOptionsLoginArray: [AuthorizationOptions] = [
-        AuthorizationOptions(typeOfRegistration: .login, text: ""),
-        AuthorizationOptions(typeOfRegistration: .password, text: "")]
+    private let authorizationOptionsLoginArray: [CellType] = [.login, .password]
     
-    private let authorizationOptionsRegistrationArray: [AuthorizationOptions] = [
-        AuthorizationOptions(typeOfRegistration: .login, text: ""),
-        AuthorizationOptions(typeOfRegistration: .email, text: ""),
-        AuthorizationOptions(typeOfRegistration: .password, text: ""),
-        AuthorizationOptions(typeOfRegistration: .repeatPassword, text: "")]
+    private let authorizationOptionsRegistrationArray: [CellType] = [.login, .email, .password, .repeatPassword]
     
-    private var dataSourse: [AuthorizationOptions] = []
+    private var dataSourse: [CellType] = []
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-                tableView.separatorStyle = .none
+        tableView.separatorStyle = .none
         tableView.register(RulesTableViewCell.self, forCellReuseIdentifier: RulesTableViewCell.reuseID)
         tableView.register(MainInformationTableViewCell.self, forCellReuseIdentifier: MainInformationTableViewCell.reuseID)
         return tableView

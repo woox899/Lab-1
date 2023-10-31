@@ -11,10 +11,10 @@ final class MainInformationTableViewCell: UITableViewCell {
     
     static let reuseID = "MainInformationTableViewCell"
     
-    private var model: AuthorizationOptions?
+    private var model: CellType?
    
     private let texfield: UITextField = {
-        let textfield = UITextField(frame: CGRect(x: 20, y: 5, width: UIScreen.main.bounds.width - 40, height: 30))
+        let textfield = UITextField(frame: CGRect(x: 20, y: 15, width: UIScreen.main.bounds.width - 40, height: 30))
         textfield.borderStyle = .roundedRect
         return textfield
     }()
@@ -28,8 +28,8 @@ final class MainInformationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(model: AuthorizationOptions) {
-        texfield.placeholder = model.typeOfRegistration.text
+    func configure(model: CellType) {
+        texfield.placeholder = model.rawValue
     }
     
     func setupUI() {
