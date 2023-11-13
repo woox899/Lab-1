@@ -15,6 +15,9 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     
     private var dataSourse: [CellType] = []
     
+    private var loginText: String?
+    private var emailText: String?
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
@@ -22,6 +25,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         tableView.separatorStyle = .none
         tableView.register(RulesTableViewCell.self, forCellReuseIdentifier: RulesTableViewCell.reuseID)
         tableView.register(MainInformationTableViewCell.self, forCellReuseIdentifier: MainInformationTableViewCell.reuseID)
+        tableView.register(EnterTableViewCell.self, forCellReuseIdentifier: EnterTableViewCell.reuseID)
         return tableView
     }()
     
@@ -32,15 +36,18 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     
     private lazy var segmentControl: UISegmentedControl = {
         let itemsArraySegmentControl = ["Вход", "Регистрация"]
-        let segmentControl = UISegmentedControl(items: itemsArraySegmentControl)
-        segmentControl.frame = CGRect(x: 50, y: 0, width: 275, height: 50)
+        var segmentControl = UISegmentedControl(items: itemsArraySegmentControl)
+        segmentControl.frame = CGRect(x: 50, y: 0, width: UIScreen.main.bounds.width - 100 , height: 50)
         segmentControl.addTarget(self, action: #selector(changeDataSourse), for: .valueChanged)
-        segmentControl.selectedSegmentIndex = 0
+        segmentControl.selectedSegmentIndex = 1
         return segmentControl
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if UserDefaults.standard.bool(forKey: UserDefaultsKyes.isRegistered) == true {
+            segmentControl.selectedSegmentIndex = 0
+        }
         setupUI()
         changeDataSourse()
     }
@@ -56,27 +63,36 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if segmentControl.selectedSegmentIndex == 1 {
-            dataSourse.count + 1
-        } else {
-            dataSourse.count
-        }
+        dataSourse.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == dataSourse.count {
-            guard let rulesTableViewCell = tableView.dequeueReusableCell(withIdentifier: RulesTableViewCell.reuseID, for: indexPath) as? RulesTableViewCell else {
+            
+            if segmentControl.selectedSegmentIndex == 0 {
+                guard let enterTableViewCell = tableView.dequeueReusableCell(withIdentifier: EnterTableViewCell.reuseID, for: indexPath) as? EnterTableViewCell else {
+                    return UITableViewCell()
+                }
+                enterTableViewCell.delegate = self
+                return enterTableViewCell
+            } else if segmentControl.selectedSegmentIndex == 1 {
+                guard let rulesTableViewCell = tableView.dequeueReusableCell(withIdentifier: RulesTableViewCell.reuseID, for: indexPath) as? RulesTableViewCell else {
+                    return UITableViewCell()
+                }
+                rulesTableViewCell.delegate = self
+                rulesTableViewCell.selectionStyle = .none
+                return rulesTableViewCell
+            } else {
                 return UITableViewCell()
             }
-            rulesTableViewCell.selectionStyle = .none
-            return rulesTableViewCell
         } else {
             guard let mainInformationTableViewCell = tableView.dequeueReusableCell(withIdentifier: MainInformationTableViewCell.reuseID, for: indexPath) as? MainInformationTableViewCell else {
                 return UITableViewCell()
             }
             mainInformationTableViewCell.selectionStyle = .none
-            mainInformationTableViewCell.configure(model: dataSourse[indexPath.row])
+            mainInformationTableViewCell.configure(type: dataSourse[indexPath.row])
+            mainInformationTableViewCell.delegate = self
             return mainInformationTableViewCell
         }
     }
@@ -96,6 +112,49 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     private func setupUI() {
         view.addSubview(tableView)
         headerView.addSubview(segmentControl)
+    }
+
+    private func login() {
+        UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
+        navigationController?.viewControllers = [MainViewController()]
+    }
+    
+    private func registerUser() {
+        guard let emailText, let loginText else {
+            return
+        }
+        UserDefaults.standard.setValue(loginText, forKey: UserDefaultsKyes.login)
+        UserDefaults.standard.setValue(emailText, forKey: UserDefaultsKyes.email)
+        UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isRegistered)
+        UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
+        navigationController?.viewControllers = [MainViewController()]
+    }
+}
+
+extension RegistrationViewController: MainInformationTableViewCellDelegate {
+    func updateText(type: CellType, text: String?) {
+        switch type {
+        case .login:
+            loginText = text
+        case .email:
+            emailText = text
+        case .password:
+            break
+        case .repeatPassword:
+            break
+        }
+    }
+}
+
+extension RegistrationViewController: RulesTableViewCellDelegate {
+    func registerButtonTapped() {
+        registerUser()
+    }
+}
+
+extension RegistrationViewController: EnterTableViewCellDelegate {
+    func loginButtonTapped() {
+        login()
     }
 }
 
