@@ -146,7 +146,6 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         navigationController?.viewControllers = [MainViewController()]
     }
     
-    //MARK: - Валидация
     func showAlertMassage(_ alertMassage: String) {
         let alertController = UIAlertController(title: "Ошибка", message: alertMassage, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "ОК", style: .default))
