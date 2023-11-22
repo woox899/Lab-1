@@ -26,7 +26,7 @@ final class EnterTableViewCell: UITableViewCell {
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: Self.reuseID)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }
     

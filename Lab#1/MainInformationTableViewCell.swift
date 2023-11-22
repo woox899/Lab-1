@@ -18,8 +18,8 @@ final class MainInformationTableViewCell: UITableViewCell, UITextFieldDelegate {
     static let reuseID = "MainInformationTableViewCell"
     
     private var type: CellType?
-   
-    private lazy var texfield: UITextField = {
+    
+    private lazy var textfield: UITextField = {
         let textfield = UITextField(frame: CGRect(x: 20, y: 15, width: UIScreen.main.bounds.width - 40, height: 30))
         textfield.borderStyle = .roundedRect
         textfield.delegate = self
@@ -28,7 +28,7 @@ final class MainInformationTableViewCell: UITableViewCell, UITextFieldDelegate {
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: Self.reuseID)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }
     
@@ -36,20 +36,21 @@ final class MainInformationTableViewCell: UITableViewCell, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(type: CellType) {
-        texfield.placeholder = type.rawValue
+    func configure(type: CellType, filledText: String) {
+        textfield.placeholder = type.rawValue
+        textfield.text = filledText
         self.type = type
     }
     
     func setupUI() {
-        contentView.addSubview(texfield)
+        contentView.addSubview(textfield)
     }
-
+    
     @objc private func textChanged() {
         guard let type else {
             return
         }
-        delegate?.updateText(type: type, text: texfield.text)
+        delegate?.updateText(type: type, text: textfield.text)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

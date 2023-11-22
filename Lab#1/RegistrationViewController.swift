@@ -17,7 +17,9 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     
     private var loginText: String?
     private var emailText: String?
-    
+    private var passwordText: String?
+    private var repeatPasswordText: String?
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
@@ -75,6 +77,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
                     return UITableViewCell()
                 }
                 enterTableViewCell.delegate = self
+                enterTableViewCell.selectionStyle = .none
                 return enterTableViewCell
             } else if segmentControl.selectedSegmentIndex == 1 {
                 guard let rulesTableViewCell = tableView.dequeueReusableCell(withIdentifier: RulesTableViewCell.reuseID, for: indexPath) as? RulesTableViewCell else {
@@ -91,7 +94,20 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
                 return UITableViewCell()
             }
             mainInformationTableViewCell.selectionStyle = .none
-            mainInformationTableViewCell.configure(type: dataSourse[indexPath.row])
+            
+            let text: String = {
+                switch dataSourse[indexPath.row] {
+                case .login:
+                    return UserDefaults.standard.string(forKey: UserDefaultsKyes.login) ?? ""
+                case .email:
+                    return UserDefaults.standard.string(forKey: UserDefaultsKyes.email) ?? ""
+                case .password:
+                    return UserDefaults.standard.string(forKey: UserDefaultsKyes.password) ?? ""
+                case .repeatPassword:
+                    return UserDefaults.standard.string(forKey: UserDefaultsKyes.repeatPassword) ?? ""
+                }
+            }()
+            mainInformationTableViewCell.configure(type: dataSourse[indexPath.row], filledText: text)
             mainInformationTableViewCell.delegate = self
             return mainInformationTableViewCell
         }
@@ -120,14 +136,57 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     }
     
     private func registerUser() {
-        guard let emailText, let loginText else {
-            return
-        }
+        guard allTextfieldsIsValid() else { return }
         UserDefaults.standard.setValue(loginText, forKey: UserDefaultsKyes.login)
         UserDefaults.standard.setValue(emailText, forKey: UserDefaultsKyes.email)
+        UserDefaults.standard.setValue(passwordText, forKey: UserDefaultsKyes.password)
+        UserDefaults.standard.setValue(repeatPasswordText, forKey: UserDefaultsKyes.repeatPassword)
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isRegistered)
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
         navigationController?.viewControllers = [MainViewController()]
+    }
+    
+    //MARK: - Валидация
+    func showAlertMassage(_ alertMassage: String) {
+        let alertController = UIAlertController(title: "Ошибка", message: alertMassage, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "ОК", style: .default))
+        self.present(alertController, animated: true)
+    }
+    
+    func emailValidation(_ email: String) -> Bool {
+        let emailRegExp: String = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegExp)
+        return emailTest.evaluate(with: email)
+    }
+    
+    func passwordValidation(_ password: String) -> Bool {
+        let passwordRegExp: String = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$"
+        let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegExp)
+        return passwordTest.evaluate(with: password)
+    }
+    
+    func allTextfieldsIsValid() -> Bool {
+        guard let emailText, let loginText, let passwordText, let repeatPasswordText else {
+            showAlertMassage("Поля не заполнены!")
+            return false
+        }
+        guard !emailText.isEmpty, !loginText.isEmpty, !passwordText.isEmpty, !repeatPasswordText.isEmpty else {
+            showAlertMassage("Поля не заполнены!")
+            return false
+        }
+        guard emailValidation(emailText) else {
+            showAlertMassage("Некорректный Email!")
+            return false
+        }
+        guard passwordValidation(passwordText) else {
+            showAlertMassage("Некорректный пароль! Пароль должен состоять не менее чем из 8 символов, содержать хотя бы одну заглавную букву, одну строчную букву и одну цифру.")
+            return false
+        }
+        guard passwordText == repeatPasswordText else {
+            showAlertMassage("Пароли не совпадают!")
+            return false
+        }
+        return true
     }
 }
 
@@ -139,9 +198,9 @@ extension RegistrationViewController: MainInformationTableViewCellDelegate {
         case .email:
             emailText = text
         case .password:
-            break
+            passwordText = text
         case .repeatPassword:
-            break
+            repeatPasswordText = text
         }
     }
 }

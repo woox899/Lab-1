@@ -11,7 +11,7 @@ final class MainViewController: UIViewController {
     
     private lazy var button: UIButton = {
         let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 40, y: UIScreen.main.bounds.height / 2, width: 80, height: 40))
-        button.setTitle("Log out", for: .normal)
+        button.setTitle("Выйти", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(buttonLogout), for: .touchUpInside)
         return button
@@ -21,7 +21,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(button)
         
-        view.backgroundColor = .red
+        view.backgroundColor = .systemRed
     }
     
     @objc func buttonLogout() {

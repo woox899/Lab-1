@@ -24,7 +24,7 @@ final class RulesTableViewCell: UITableViewCell {
     }()
     
     private let agreeWithTheRulesLabelSwitch: UISwitch = {
-        let agreeWithTheRulesLabelSwitch = UISwitch(frame: CGRect(x: 305, y: 0, width: 50, height: 30))
+        let agreeWithTheRulesLabelSwitch = UISwitch(frame: CGRect(x: UIScreen.main.bounds.width - 70, y: 0, width: 0, height: 0))
         return agreeWithTheRulesLabelSwitch
     }()
     

@@ -12,4 +12,6 @@ enum UserDefaultsKyes {
     static let login = "login"
     static let isRegistered = "isRegistered"
     static let isActiveSession = "isActiveSession"
+    static let password = "password"
+    static let repeatPassword = "repeatPassword"
 }
