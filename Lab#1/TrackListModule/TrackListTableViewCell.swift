@@ -37,13 +37,18 @@ final class TrackListTableViewCell: UITableViewCell {
         return performerNameLabel
     }()
     
+    private let downloadButton: UIButton = {
+        let downloadButton = UIButton()
+        downloadButton.setImage(UIImage(named: "download"), for: .normal)
+        downloadButton.layer.cornerRadius = 15
+        return downloadButton
+    }()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }
-    
-   
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -53,6 +58,7 @@ final class TrackListTableViewCell: UITableViewCell {
         contentView.addSubview(trackSmallImageView)
         contentView.addSubview(trackNameLabel)
         contentView.addSubview(performerNameLabel)
+        contentView.addSubview(downloadButton)
         
         trackSmallImageView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading).offset(25)
@@ -69,6 +75,13 @@ final class TrackListTableViewCell: UITableViewCell {
         performerNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(trackSmallImageView.snp.trailing).offset(20)
             make.top.equalTo(trackNameLabel.snp.bottom).offset(5)
+        }
+        
+        downloadButton.snp.makeConstraints { make in
+            make.trailing.equalTo(contentView.snp.trailing).offset(-40)
+            make.centerY.equalTo(contentView.snp.centerY)
+            make.height.equalTo(30)
+            make.width.equalTo(30)
         }
     }
 }

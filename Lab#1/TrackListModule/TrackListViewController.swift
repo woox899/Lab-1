@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import SnapKit
 
 final class TrackListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-   
+    
     private lazy var trackListTableView: UITableView = {
         let view = UITableView(frame: view.bounds, style: .plain)
         view.delegate = self
@@ -29,7 +30,16 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        configureNavigationBar()
         view.backgroundColor = .systemRed
+    }
+    
+    func configureNavigationBar() {
+        navigationController?.navigationBar.tintColor = UIColor(red: 222/255, green: 3/255, blue: 64/255, alpha: 1)
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down"), style: .plain, target: nil, action: nil)
+        ]
     }
     
     func setupUI() {
@@ -52,17 +62,19 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         }
         return trackListTableViewCell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        goToRecordPlayerViewController()
+    }
+
     func goToRecordPlayerViewController() {
         let recordPlayerViewController = RecordPlayerViewController()
         present(recordPlayerViewController, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goToRecordPlayerViewController()
-    }
 }
+   
+
