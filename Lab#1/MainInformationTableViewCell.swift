@@ -36,7 +36,7 @@ final class MainInformationTableViewCell: UITableViewCell, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(type: CellType, filledText: String) {
+    func configure(type: CellType, filledText: String?) {
         textfield.placeholder = type.rawValue
         textfield.text = filledText
         self.type = type
