@@ -132,8 +132,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
 
     private func login() {
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
-//        navigationController?.viewControllers = [TrackListViewController()]
-        goToTrackListViewController()
+        navigationController?.viewControllers = [TrackListViewController()]
     }
     
     private func registerUser() {
@@ -144,8 +143,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         UserDefaults.standard.setValue(repeatPasswordText, forKey: UserDefaultsKyes.repeatPassword)
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isRegistered)
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
-//        navigationController?.viewControllers = [TrackListViewController()]
-        goToTrackListViewController()
+        navigationController?.viewControllers = [TrackListViewController()]
     }
     
     func showAlertMassage(_ alertMassage: String) {
@@ -188,10 +186,6 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
             return false
         }
         return true
-    }
-    
-    @objc func goToTrackListViewController() {
-        navigationController?.pushViewController(TrackListViewController(), animated: true)
     }
 }
 

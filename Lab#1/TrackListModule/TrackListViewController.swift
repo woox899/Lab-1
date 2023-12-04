@@ -38,7 +38,8 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         navigationController?.navigationBar.tintColor = UIColor(red: 222/255, green: 3/255, blue: 64/255, alpha: 1)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil),
-            UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down"), style: .plain, target: nil, action: nil)
+            UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down"), style: .plain, target: nil, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left.circle.fill"), style: .plain, target: self, action: #selector(goToRegistrationViewController))
         ]
     }
     
@@ -74,6 +75,10 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
     func goToRecordPlayerViewController() {
         let recordPlayerViewController = RecordPlayerViewController()
         present(recordPlayerViewController, animated: true)
+    }
+    
+    @objc func goToRegistrationViewController() {
+        navigationController?.viewControllers = [RegistrationViewController()]
     }
 }
    
