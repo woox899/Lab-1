@@ -19,7 +19,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     private var emailText: String?
     private var passwordText: String?
     private var repeatPasswordText: String?
-
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
@@ -94,20 +94,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
                 return UITableViewCell()
             }
             mainInformationTableViewCell.selectionStyle = .none
-            
-            let text: String = {
-                switch dataSourse[indexPath.row] {
-                case .login:
-                    return UserDefaults.standard.string(forKey: UserDefaultsKyes.login) ?? ""
-                case .email:
-                    return UserDefaults.standard.string(forKey: UserDefaultsKyes.email) ?? ""
-                case .password:
-                    return UserDefaults.standard.string(forKey: UserDefaultsKyes.password) ?? ""
-                case .repeatPassword:
-                    return UserDefaults.standard.string(forKey: UserDefaultsKyes.repeatPassword) ?? ""
-                }
-            }()
-            mainInformationTableViewCell.configure(type: dataSourse[indexPath.row], filledText: text)
+            mainInformationTableViewCell.configure(type: dataSourse[indexPath.row], filledText: nil)
             mainInformationTableViewCell.delegate = self
             return mainInformationTableViewCell
         }
@@ -129,8 +116,9 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         view.addSubview(tableView)
         headerView.addSubview(segmentControl)
     }
-
+    
     private func login() {
+        guard enteredLoginAndPasswordValid() else { return }
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
         navigationController?.viewControllers = [TrackListViewController()]
     }
@@ -183,6 +171,22 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         }
         guard passwordText == repeatPasswordText else {
             showAlertMassage("Пароли не совпадают!")
+            return false
+        }
+        return true
+    }
+    
+    func enteredLoginAndPasswordValid() -> Bool {
+        guard let loginToBeEntered = UserDefaults.standard.string(forKey: UserDefaultsKyes.login),
+              !loginToBeEntered.isEmpty,
+              loginToBeEntered == loginText else {
+            showAlertMassage("Неверный логин")
+            return false
+        }
+        guard let enteredPassword = UserDefaults.standard.string(forKey: UserDefaultsKyes.password),
+              !enteredPassword.isEmpty,
+              enteredPassword == passwordText else {
+            showAlertMassage("Неверный пароль")
             return false
         }
         return true
