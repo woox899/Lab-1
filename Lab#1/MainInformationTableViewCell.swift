@@ -7,20 +7,28 @@
 
 import UIKit
 
-final class MainInformationTableViewCell: UITableViewCell {
+protocol MainInformationTableViewCellDelegate: AnyObject {
+    func updateText(type: CellType, text: String?)
+}
+
+final class MainInformationTableViewCell: UITableViewCell, UITextFieldDelegate {
+    
+    weak var delegate: MainInformationTableViewCellDelegate?
     
     static let reuseID = "MainInformationTableViewCell"
     
-    private var model: AuthorizationOptions?
-   
-    private let texfield: UITextField = {
-        let textfield = UITextField(frame: CGRect(x: 20, y: 5, width: UIScreen.main.bounds.width - 40, height: 30))
+    private var type: CellType?
+    
+    private lazy var textfield: UITextField = {
+        let textfield = UITextField(frame: CGRect(x: 20, y: 15, width: UIScreen.main.bounds.width - 40, height: 30))
         textfield.borderStyle = .roundedRect
+        textfield.delegate = self
+        textfield.addTarget(self, action: #selector(textChanged), for: .editingChanged)
         return textfield
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: MainInformationTableViewCell.reuseID)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }
     
@@ -28,11 +36,24 @@ final class MainInformationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(model: AuthorizationOptions) {
-        texfield.placeholder = model.typeOfRegistration.text
+    func configure(type: CellType, filledText: String?) {
+        textfield.placeholder = type.rawValue
+        textfield.text = filledText
+        self.type = type
     }
     
     func setupUI() {
-        contentView.addSubview(texfield)
+        contentView.addSubview(textfield)
+    }
+    
+    @objc private func textChanged() {
+        guard let type else {
+            return
+        }
+        delegate?.updateText(type: type, text: textfield.text)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
     }
 }

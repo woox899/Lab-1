@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol RulesTableViewCellDelegate: AnyObject {
+    func registerButtonTapped()
+}
+
 final class RulesTableViewCell: UITableViewCell {
     
     static let reuseID = "RulesTableViewCell"
+
+    weak var delegate: RulesTableViewCellDelegate?
     
     private let agreeWithTheRulesLabel: UILabel = {
         let agreeWithTheRulesLabel = UILabel(frame: CGRect(x: 20, y: 0, width: 200, height: 30))
@@ -18,19 +24,20 @@ final class RulesTableViewCell: UITableViewCell {
     }()
     
     private let agreeWithTheRulesLabelSwitch: UISwitch = {
-        let agreeWithTheRulesLabelSwitch = UISwitch(frame: CGRect(x: 305, y: 0, width: 50, height: 30))
+        let agreeWithTheRulesLabelSwitch = UISwitch(frame: CGRect(x: UIScreen.main.bounds.width - 70, y: 0, width: 0, height: 0))
         return agreeWithTheRulesLabelSwitch
     }()
     
-    private let registrationButton: UIButton = {
+    private lazy var registrationButton: UIButton = {
         let registrationButton = UIButton(frame: CGRect(x: 100, y: 30, width: UIScreen.main.bounds.width - 200, height: 30))
         registrationButton.setTitle("Зарегистрироваться", for: .normal)
         registrationButton.setTitleColor(UIColor.blue, for: .normal)
+        registrationButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return registrationButton
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: "")
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }
     
@@ -42,5 +49,9 @@ final class RulesTableViewCell: UITableViewCell {
         contentView.addSubview(agreeWithTheRulesLabel)
         contentView.addSubview(agreeWithTheRulesLabelSwitch)
         contentView.addSubview(registrationButton)
+    }
+
+    @objc private func buttonTapped() {
+        delegate?.registerButtonTapped()
     }
 }

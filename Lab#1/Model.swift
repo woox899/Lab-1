@@ -7,28 +7,9 @@
 
 import Foundation
 
-enum TypeOfRegistrationCell: String {
-    case login
-    case email
-    case password
-    case repeatPassword
-    
-    var text: String {
-        switch self {
-        case .email:
-            return "E-mail"
-        case .login:
-            return "Логин"
-        case .password:
-            return "Пароль"
-        case .repeatPassword:
-            return "Повторите пароль"
-        }
-    }
+enum CellType: String {
+    case login = "Логин"
+    case email = "E-mail"
+    case password = "Пароль"
+    case repeatPassword = "Повторите пароль"
 }
-
-struct AuthorizationOptions {
-    var typeOfRegistration: TypeOfRegistrationCell
-    var text: String
-}
-
