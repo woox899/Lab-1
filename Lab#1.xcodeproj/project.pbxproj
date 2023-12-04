@@ -20,6 +20,11 @@
 		D18E73182B0F3F82005E0D6A /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = D18E73172B0F3F82005E0D6A /* SnapKit-Dynamic */; };
 		D18E731C2B0F69D3005E0D6A /* RecordPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E731B2B0F69D3005E0D6A /* RecordPlayerViewController.swift */; };
 		D18E731E2B0FB955005E0D6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D18E731D2B0FB955005E0D6A /* Assets.xcassets */; };
+		D18E73252B19B57E005E0D6A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E73242B19B57E005E0D6A /* API.swift */; };
+		D18E73292B19B661005E0D6A /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = D18E73282B19B661005E0D6A /* CombineMoya */; };
+		D18E732B2B19B661005E0D6A /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D18E732A2B19B661005E0D6A /* Moya */; };
+		D18E732D2B19B661005E0D6A /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = D18E732C2B19B661005E0D6A /* ReactiveMoya */; };
+		D18E732F2B19B661005E0D6A /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = D18E732E2B19B661005E0D6A /* RxMoya */; };
 		D18E928A2B022E080012BF14 /* EnterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E92892B022E080012BF14 /* EnterTableViewCell.swift */; };
 		D18E928C2B0258D20012BF14 /* UserDefaultsKyes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E928B2B0258D20012BF14 /* UserDefaultsKyes.swift */; };
 		D18E928E2B0262170012BF14 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E928D2B0262170012BF14 /* TrackListViewController.swift */; };
@@ -39,6 +44,7 @@
 		D18E73122B0F3E4C005E0D6A /* TrackListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListTableViewCell.swift; sourceTree = "<group>"; };
 		D18E731B2B0F69D3005E0D6A /* RecordPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPlayerViewController.swift; sourceTree = "<group>"; };
 		D18E731D2B0FB955005E0D6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D18E73242B19B57E005E0D6A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D18E92892B022E080012BF14 /* EnterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterTableViewCell.swift; sourceTree = "<group>"; };
 		D18E928B2B0258D20012BF14 /* UserDefaultsKyes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKyes.swift; sourceTree = "<group>"; };
 		D18E928D2B0262170012BF14 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
@@ -49,8 +55,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D18E732F2B19B661005E0D6A /* RxMoya in Frameworks */,
 				D18E73162B0F3F82005E0D6A /* SnapKit in Frameworks */,
 				D18E73182B0F3F82005E0D6A /* SnapKit-Dynamic in Frameworks */,
+				D18E732B2B19B661005E0D6A /* Moya in Frameworks */,
+				D18E732D2B19B661005E0D6A /* ReactiveMoya in Frameworks */,
+				D18E73292B19B661005E0D6A /* CombineMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +96,7 @@
 				D18E928B2B0258D20012BF14 /* UserDefaultsKyes.swift */,
 				D18E73192B0F695F005E0D6A /* TrackListModule */,
 				D18E731A2B0F69AC005E0D6A /* RecordPlayerModule */,
+				D18E73262B19B58D005E0D6A /* NetworkService */,
 				D18C75BB2AF11C39004F41CF /* .gitignore */,
 				D18C75AC2AE6DAC9004F41CF /* LaunchScreen.storyboard */,
 				D18C75AF2AE6DAC9004F41CF /* Info.plist */,
@@ -111,6 +122,14 @@
 			path = RecordPlayerModule;
 			sourceTree = "<group>";
 		};
+		D18E73262B19B58D005E0D6A /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				D18E73242B19B57E005E0D6A /* API.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -130,6 +149,10 @@
 			packageProductDependencies = (
 				D18E73152B0F3F82005E0D6A /* SnapKit */,
 				D18E73172B0F3F82005E0D6A /* SnapKit-Dynamic */,
+				D18E73282B19B661005E0D6A /* CombineMoya */,
+				D18E732A2B19B661005E0D6A /* Moya */,
+				D18E732C2B19B661005E0D6A /* ReactiveMoya */,
+				D18E732E2B19B661005E0D6A /* RxMoya */,
 			);
 			productName = "Lab#1";
 			productReference = D18C759E2AE6DAC8004F41CF /* Lab#1.app */;
@@ -161,6 +184,7 @@
 			mainGroup = D18C75952AE6DAC8004F41CF;
 			packageReferences = (
 				D18E73142B0F3F82005E0D6A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				D18E73272B19B661005E0D6A /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = D18C759F2AE6DAC8004F41CF /* Products */;
 			projectDirPath = "";
@@ -199,6 +223,7 @@
 				D107D3D62B0624B7005F8DCD /* MainInformationTableViewCell.swift in Sources */,
 				D18E928E2B0262170012BF14 /* TrackListViewController.swift in Sources */,
 				D18C75BA2AEB9822004F41CF /* Model.swift in Sources */,
+				D18E73252B19B57E005E0D6A /* API.swift in Sources */,
 				D18E73132B0F3E4C005E0D6A /* TrackListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,6 +451,14 @@
 				minimumVersion = 5.6.0;
 			};
 		};
+		D18E73272B19B661005E0D6A /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -438,6 +471,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D18E73142B0F3F82005E0D6A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = "SnapKit-Dynamic";
+		};
+		D18E73282B19B661005E0D6A /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D18E73272B19B661005E0D6A /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		D18E732A2B19B661005E0D6A /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D18E73272B19B661005E0D6A /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		D18E732C2B19B661005E0D6A /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D18E73272B19B661005E0D6A /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = ReactiveMoya;
+		};
+		D18E732E2B19B661005E0D6A /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D18E73272B19B661005E0D6A /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
