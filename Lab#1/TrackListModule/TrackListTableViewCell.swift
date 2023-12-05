@@ -17,7 +17,7 @@ final class TrackListTableViewCell: UITableViewCell {
         trackImageView.translatesAutoresizingMaskIntoConstraints = false
         trackImageView.layer.cornerRadius = 8
         trackImageView.clipsToBounds = true
-        trackImageView.backgroundColor = .systemBlue
+        trackImageView.backgroundColor = .lightGray
         return trackImageView
     }()
     
@@ -44,10 +44,17 @@ final class TrackListTableViewCell: UITableViewCell {
         return downloadButton
     }()
     
+    private let separatorView: UIView = {
+        let separatorView = UIView()
+        separatorView.backgroundColor = .lightGray
+        return separatorView
+    }()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +66,7 @@ final class TrackListTableViewCell: UITableViewCell {
         contentView.addSubview(trackNameLabel)
         contentView.addSubview(performerNameLabel)
         contentView.addSubview(downloadButton)
+        contentView.addSubview(separatorView)
         
         trackSmallImageView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading).offset(25)
@@ -82,6 +90,13 @@ final class TrackListTableViewCell: UITableViewCell {
             make.centerY.equalTo(contentView.snp.centerY)
             make.height.equalTo(30)
             make.width.equalTo(30)
+        }
+        
+        separatorView.snp.makeConstraints { make in
+            make.bottom.equalTo(contentView.snp.bottom)
+            make.leading.equalTo(trackSmallImageView.snp.trailing).offset(20)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.height.equalTo(1)
         }
     }
 }

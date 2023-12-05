@@ -39,6 +39,9 @@ final class RecordPlayerViewController: UIViewController {
     private let trackSlider: UISlider = {
         let trackSlider = UISlider()
         trackSlider.translatesAutoresizingMaskIntoConstraints = false
+        trackSlider.minimumTrackTintColor = .darkGray
+        trackSlider.maximumTrackTintColor = .darkGray
+        trackSlider.thumbTintColor = .gray
         return trackSlider
     }()
     
@@ -76,6 +79,22 @@ final class RecordPlayerViewController: UIViewController {
         return additionalFeaturesButton
     }()
     
+    private let leftTimeLabel: UILabel = {
+        let leftTimeLabel = UILabel()
+        leftTimeLabel.text = "0:00"
+        leftTimeLabel.textColor = .lightGray
+        leftTimeLabel.font = UIFont.systemFont(ofSize: 15)
+        return leftTimeLabel
+    }()
+    
+    private let rightTimeLabel: UILabel = {
+        let rightTimeLabel = UILabel()
+        rightTimeLabel.text = "0:00"
+        rightTimeLabel.textColor = .lightGray
+        rightTimeLabel.font = UIFont.systemFont(ofSize: 15)
+        return rightTimeLabel
+    }()
+    
     private let swipeView: UIView = {
         let swipeView = UIView()
         swipeView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,6 +118,8 @@ final class RecordPlayerViewController: UIViewController {
         view.addSubview(backwardButton)
         view.addSubview(forwardButton)
         view.addSubview(additionalFeaturesButton)
+        view.addSubview(leftTimeLabel)
+        view.addSubview(rightTimeLabel)
         view.addSubview(swipeView)
         
         recordPlayerTrackImageView.snp.makeConstraints { make in
@@ -151,6 +172,16 @@ final class RecordPlayerViewController: UIViewController {
             make.top.equalTo(recordPlayerTrackImageView.snp.bottom).offset(60)
             make.width.equalTo(35)
             make.height.equalTo(35)
+        }
+        
+        leftTimeLabel.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(35)
+            make.top.equalTo(trackSlider.snp.bottom).offset(5)
+        }
+        
+        rightTimeLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(view.snp.trailing).offset(-35)
+            make.top.equalTo(trackSlider.snp.bottom).offset(5)
         }
         
         swipeView.snp.makeConstraints { make in

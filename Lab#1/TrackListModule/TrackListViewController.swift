@@ -14,24 +14,15 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         let view = UITableView(frame: view.bounds, style: .plain)
         view.delegate = self
         view.dataSource = self
+        view.separatorStyle = .none
         view.register(TrackListTableViewCell.self, forCellReuseIdentifier: TrackListTableViewCell.reuseID)
         return view
-    }()
-    
-    //MARK: - куда-то деть кнопку выхода из приложения
-    private lazy var button: UIButton = {
-        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 40, y: UIScreen.main.bounds.height / 2, width: 80, height: 40))
-        button.setTitle("Выйти", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(buttonLogout), for: .touchUpInside)
-        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         configureNavigationBar()
-        view.backgroundColor = .systemRed
     }
     
     func configureNavigationBar() {
@@ -39,12 +30,11 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil),
             UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down"), style: .plain, target: nil, action: nil),
-            UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left.circle.fill"), style: .plain, target: self, action: #selector(goToRegistrationViewController))
+            UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left.circle.fill"), style: .plain, target: self, action: #selector(buttonLogout))
         ]
     }
     
     func setupUI() {
-        view.addSubview(button)
         view.addSubview(trackListTableView)
     }
     
@@ -54,13 +44,14 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let trackListTableViewCell = trackListTableView.dequeueReusableCell(withIdentifier: TrackListTableViewCell.reuseID, for: indexPath) as? TrackListTableViewCell else {
             return UITableViewCell()
         }
+        trackListTableViewCell.selectionStyle = .none
         return trackListTableViewCell
     }
 
@@ -75,10 +66,6 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
     func goToRecordPlayerViewController() {
         let recordPlayerViewController = RecordPlayerViewController()
         present(recordPlayerViewController, animated: true)
-    }
-    
-    @objc func goToRegistrationViewController() {
-        navigationController?.viewControllers = [RegistrationViewController()]
     }
 }
    
