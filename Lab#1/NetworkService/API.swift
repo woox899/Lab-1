@@ -21,7 +21,7 @@ extension API: TargetType {
     var path: String {
         switch self {
         case .musick:
-            return
+            return "tracks/?client_id=4c7ca959&format=json&limit=50&vocalinstrumental=instrumental"
         }
     }
     
@@ -30,7 +30,10 @@ extension API: TargetType {
     }
     
     var task: Moya.Task {
-        <#code#>
+        switch self {
+        case .musick:
+            return .requestParameters(parameters: ["client_id" : "4c7ca959"], encoding: URLEncoding.queryString)
+        }
     }
     
     var headers: [String : String]? {
