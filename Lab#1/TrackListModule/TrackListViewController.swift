@@ -7,8 +7,13 @@
 
 import UIKit
 import SnapKit
+import Moya
 
 final class TrackListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+//    let provider = MoyaProvider<GetMusick>()
+    private let servive = APIService()
+    private var tracks = [TracksModel]()
     
     private lazy var trackListTableView: UITableView = {
         let view = UITableView(frame: view.bounds, style: .plain)
@@ -32,6 +37,7 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         setupUI()
         configureNavigationBar()
         view.backgroundColor = .systemRed
+        getTracks()
     }
     
     func configureNavigationBar() {
@@ -53,28 +59,39 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return tracks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let trackListTableViewCell = trackListTableView.dequeueReusableCell(withIdentifier: TrackListTableViewCell.reuseID, for: indexPath) as? TrackListTableViewCell else {
             return UITableViewCell()
         }
+        trackListTableViewCell.configure(track: tracks[indexPath.row])
         return trackListTableViewCell
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         goToRecordPlayerViewController()
     }
-
+    
     func goToRecordPlayerViewController() {
         let recordPlayerViewController = RecordPlayerViewController()
         present(recordPlayerViewController, animated: true)
     }
+    
+    func getTracks() {
+        servive.getTracks() { [weak self] result in
+            switch result {
+            case .success(let tracks):
+                self?.tracks = tracks
+                self?.trackListTableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
-   
-

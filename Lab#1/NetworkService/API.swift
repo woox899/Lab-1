@@ -8,20 +8,20 @@
 import Foundation
 import Moya
 
-enum API {
-    case musick
+enum GetMusick {
+    case tracks(String)
 }
 
-extension API: TargetType {
+extension GetMusick: TargetType {
     var baseURL: URL {
-        guard let url = URL(string: "http://api.jamendo.com/v3.0/") else { fatalError() }
+        guard let url = URL(string: "https://api.jamendo.com/v3.0") else { fatalError() }
         return url
     }
     
     var path: String {
         switch self {
-        case .musick:
-            return "tracks/?client_id=4c7ca959&format=json&limit=50&vocalinstrumental=instrumental"
+        case .tracks:
+            return "/tracks"
         }
     }
     
@@ -31,12 +31,12 @@ extension API: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .musick:
-            return .requestParameters(parameters: ["client_id" : "4c7ca959"], encoding: URLEncoding.queryString)
+        case .tracks(let clientId):
+            return .requestParameters(parameters: ["client_id" : clientId, "limit" : "10", "vocalinstrumental" : "instrumental"], encoding: URLEncoding.queryString)
         }
     }
     
     var headers: [String : String]? {
-        <#code#>
+        return ["Content-Type": "application/json"]
     }
 }

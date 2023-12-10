@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D107D3D62B0624B7005F8DCD /* MainInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75B52AE81F89004F41CF /* MainInformationTableViewCell.swift */; };
+		D171A19D2B25B4C300A97CCD /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D171A19C2B25B4C300A97CCD /* APIService.swift */; };
 		D18C75A22AE6DAC8004F41CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75A12AE6DAC8004F41CF /* AppDelegate.swift */; };
 		D18C75A42AE6DAC8004F41CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75A32AE6DAC8004F41CF /* SceneDelegate.swift */; };
 		D18C75A62AE6DAC8004F41CF /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75A52AE6DAC8004F41CF /* RegistrationViewController.swift */; };
@@ -25,12 +26,14 @@
 		D18E732B2B19B661005E0D6A /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D18E732A2B19B661005E0D6A /* Moya */; };
 		D18E732D2B19B661005E0D6A /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = D18E732C2B19B661005E0D6A /* ReactiveMoya */; };
 		D18E732F2B19B661005E0D6A /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = D18E732E2B19B661005E0D6A /* RxMoya */; };
+		D18E73322B205B95005E0D6A /* TracksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E73312B205B95005E0D6A /* TracksModel.swift */; };
 		D18E928A2B022E080012BF14 /* EnterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E92892B022E080012BF14 /* EnterTableViewCell.swift */; };
 		D18E928C2B0258D20012BF14 /* UserDefaultsKyes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E928B2B0258D20012BF14 /* UserDefaultsKyes.swift */; };
 		D18E928E2B0262170012BF14 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E928D2B0262170012BF14 /* TrackListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D171A19C2B25B4C300A97CCD /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		D18C759E2AE6DAC8004F41CF /* Lab#1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lab#1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18C75A12AE6DAC8004F41CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D18C75A32AE6DAC8004F41CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		D18E731B2B0F69D3005E0D6A /* RecordPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPlayerViewController.swift; sourceTree = "<group>"; };
 		D18E731D2B0FB955005E0D6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D18E73242B19B57E005E0D6A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		D18E73312B205B95005E0D6A /* TracksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksModel.swift; sourceTree = "<group>"; };
 		D18E92892B022E080012BF14 /* EnterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterTableViewCell.swift; sourceTree = "<group>"; };
 		D18E928B2B0258D20012BF14 /* UserDefaultsKyes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKyes.swift; sourceTree = "<group>"; };
 		D18E928D2B0262170012BF14 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				D18E73242B19B57E005E0D6A /* API.swift */,
+				D171A19C2B25B4C300A97CCD /* APIService.swift */,
+				D18E73312B205B95005E0D6A /* TracksModel.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -218,8 +224,10 @@
 				D18E731C2B0F69D3005E0D6A /* RecordPlayerViewController.swift in Sources */,
 				D18C75B82AE82010004F41CF /* RulesTableViewCell.swift in Sources */,
 				D18E928A2B022E080012BF14 /* EnterTableViewCell.swift in Sources */,
+				D18E73322B205B95005E0D6A /* TracksModel.swift in Sources */,
 				D18E928C2B0258D20012BF14 /* UserDefaultsKyes.swift in Sources */,
 				D18C75A42AE6DAC8004F41CF /* SceneDelegate.swift in Sources */,
+				D171A19D2B25B4C300A97CCD /* APIService.swift in Sources */,
 				D107D3D62B0624B7005F8DCD /* MainInformationTableViewCell.swift in Sources */,
 				D18E928E2B0262170012BF14 /* TrackListViewController.swift in Sources */,
 				D18C75BA2AEB9822004F41CF /* Model.swift in Sources */,

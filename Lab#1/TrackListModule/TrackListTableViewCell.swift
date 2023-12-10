@@ -53,8 +53,13 @@ final class TrackListTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func configure(track: TracksModel) {
+        trackNameLabel.text = track.name
+        performerNameLabel.text = track.artistName
+    }
     
-    func setupUI() {
+    private func setupUI() {
         contentView.addSubview(trackSmallImageView)
         contentView.addSubview(trackNameLabel)
         contentView.addSubview(performerNameLabel)
