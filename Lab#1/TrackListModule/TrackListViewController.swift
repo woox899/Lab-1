@@ -11,7 +11,6 @@ import Moya
 
 final class TrackListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-//    let provider = MoyaProvider<GetMusick>()
     private let servive = APIService()
     private var tracks = [TracksModel]()
     
@@ -79,8 +78,8 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func goToRecordPlayerViewController() {
-        let recordPlayerViewController = RecordPlayerViewController()
-        present(recordPlayerViewController, animated: true)
+//        let recordPlayerViewController = RecordPlayerViewController(tracks: tracks, currentIndex:)
+//        present(recordPlayerViewController, animated: true)
     }
     
     func getTracks() {

@@ -10,6 +10,9 @@ import SnapKit
 
 final class RecordPlayerViewController: UIViewController {
     
+    private var tracks = [TracksModel]()
+    private var currentIndex: Int
+    
     private let recordPlayerTrackImageView: UIImageView = {
         let recordPlayerTrackImageView = UIImageView()
         recordPlayerTrackImageView.backgroundColor = .white
@@ -90,7 +93,22 @@ final class RecordPlayerViewController: UIViewController {
         view.backgroundColor = UIColor(red: 47/255, green: 47/255, blue: 49/255, alpha: 1)
     }
     
-    func setupUI() {
+    init(tracks: [TracksModel], currentIndex: Int) {
+        super.init(nibName: nil, bundle: nil)
+        self.tracks = tracks
+        self.currentIndex = currentIndex
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+//    func configure(tracks: TracksModel) {
+//        recordPlayerTrackNameLabel.text = tracks.name
+//        recordPlayerPerformerNameLabel.text = tracks.artistName
+//    }
+    
+    private func setupUI() {
         view.addSubview(recordPlayerTrackImageView)
         view.addSubview(recordPlayerTrackNameLabel)
         view.addSubview(recordPlayerPerformerNameLabel)
