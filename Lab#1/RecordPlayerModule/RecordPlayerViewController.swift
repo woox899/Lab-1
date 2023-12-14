@@ -7,21 +7,31 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 
 final class RecordPlayerViewController: UIViewController {
+    
+    private var tracks: [TracksModel]
+    private var currentIndex: Int
+
+    private var player: AVAudioPlayer?
+    private var isPlaying = true
+    private var currentTime: TimeInterval = 0.0
+    private var totalTime: TimeInterval = 0.0
+    private var playPauseIsTap = true
     
     private let recordPlayerTrackImageView: UIImageView = {
         let recordPlayerTrackImageView = UIImageView()
         recordPlayerTrackImageView.backgroundColor = .white
         recordPlayerTrackImageView.translatesAutoresizingMaskIntoConstraints = false
         recordPlayerTrackImageView.layer.cornerRadius = 10
+        recordPlayerTrackImageView.clipsToBounds = true
         return recordPlayerTrackImageView
     }()
     
     private let recordPlayerTrackNameLabel: UILabel = {
         let recordPlayerTrackNameLabel = UILabel()
         recordPlayerTrackNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        recordPlayerTrackNameLabel.text = "Numb"
         recordPlayerTrackNameLabel.font = UIFont.systemFont(ofSize: 28, weight: .heavy)
         recordPlayerTrackNameLabel.textColor = .white
         return recordPlayerTrackNameLabel
@@ -30,7 +40,6 @@ final class RecordPlayerViewController: UIViewController {
     private let recordPlayerPerformerNameLabel: UILabel = {
         let recordPlayerPerformerNameLabel = UILabel()
         recordPlayerPerformerNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        recordPlayerPerformerNameLabel.text = "Linkin Park"
         recordPlayerPerformerNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .light)
         recordPlayerPerformerNameLabel.textColor = .white
         return recordPlayerPerformerNameLabel
@@ -45,35 +54,46 @@ final class RecordPlayerViewController: UIViewController {
         return trackSlider
     }()
     
-    private let playPauseButton: UIButton = {
+    private lazy var playPauseButton: UIButton = {
         let playPauseButton = UIButton()
         playPauseButton.translatesAutoresizingMaskIntoConstraints = false
-        playPauseButton.setImage(UIImage(named: "play"), for: .normal)
+        playPauseButton.setImage(UIImage(systemName: isPlaying ? "pause.fill" : "play.fill"), for: .normal)
+        playPauseButton.addTarget(self, action: #selector(playPauseButtonIsTap), for: .touchUpInside)
+        playPauseButton.tintColor = .white
         playPauseButton.imageView?.contentMode = .scaleAspectFit
+        playPauseButton.contentVerticalAlignment = .fill
+        playPauseButton.contentHorizontalAlignment = .fill
         return playPauseButton
     }()
     
     private let backwardButton: UIButton = {
         let backwardButton = UIButton()
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
-        backwardButton.setImage(UIImage(named: "backward"), for: .normal)
+        backwardButton.setImage(UIImage(systemName: "backward.fill"), for: .normal)
+        backwardButton.tintColor = .white
         backwardButton.imageView?.contentMode = .scaleAspectFit
+        backwardButton.contentVerticalAlignment = .fill
+        backwardButton.contentHorizontalAlignment = .fill
         return backwardButton
     }()
     
     private let forwardButton: UIButton = {
         let forwardButton = UIButton()
         forwardButton.translatesAutoresizingMaskIntoConstraints = false
-        forwardButton.setImage(UIImage(named: "forward"), for: .normal)
+        forwardButton.setImage(UIImage(systemName: "forward.fill"), for: .normal)
+        forwardButton.tintColor = .white
         forwardButton.imageView?.contentMode = .scaleAspectFit
+        forwardButton.contentVerticalAlignment = .fill
+        forwardButton.contentHorizontalAlignment = .fill
         return forwardButton
     }()
     
     private let additionalFeaturesButton: UIButton = {
         let additionalFeaturesButton = UIButton()
         additionalFeaturesButton.translatesAutoresizingMaskIntoConstraints = false
-        additionalFeaturesButton.setImage(UIImage(named: "ellipsiswhite"), for: .normal)
+        additionalFeaturesButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
         additionalFeaturesButton.imageView?.contentMode = .scaleAspectFit
+        additionalFeaturesButton.tintColor = .white
         additionalFeaturesButton.backgroundColor = UIColor(red: 68/255, green: 68/255, blue: 70/255, alpha: 1)
         additionalFeaturesButton.layer.cornerRadius = 17.5
         return additionalFeaturesButton
@@ -106,10 +126,69 @@ final class RecordPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        configure()
+        setupAudio()
         view.backgroundColor = UIColor(red: 47/255, green: 47/255, blue: 49/255, alpha: 1)
     }
     
-    func setupUI() {
+    init(tracks: [TracksModel], currentIndex: Int) {
+        self.tracks = tracks
+        self.currentIndex = currentIndex
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure() {
+        let track = tracks[currentIndex]
+        recordPlayerTrackNameLabel.text = track.name
+        recordPlayerPerformerNameLabel.text = track.artistName
+        if let trackImage = track.image, let imageURL = URL(string: trackImage) {
+            recordPlayerTrackImageView.kf.setImage(with: imageURL)
+        }
+    }
+    
+    private func setupAudio() {
+        let track = tracks[currentIndex]
+        guard let url = Bundle.main.url(forResource: track.audio, withExtension: "mp3")
+        else {
+            return
+        }
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.prepareToPlay()
+            totalTime = player?.duration ?? 0.0
+        } catch {
+            print("Errir loading audio: \(error)")
+        }
+    }
+    
+    private func playAudio() {
+        player?.play()
+        isPlaying = true
+        print("Playing")
+    }
+    
+    private func stopAudio() {
+        player?.pause()
+        isPlaying = false
+        print("Paused")
+    }
+    
+    @objc func playPauseButtonIsTap() {
+        playPauseIsTap.toggle()
+        if playPauseIsTap {
+            playAudio()
+            print("isPlayinfTrue")
+        } else {
+            stopAudio()
+            print("isPlayinfFalse")
+        }
+    }
+    
+    private func setupUI() {
         view.addSubview(recordPlayerTrackImageView)
         view.addSubview(recordPlayerTrackNameLabel)
         view.addSubview(recordPlayerPerformerNameLabel)
@@ -131,6 +210,7 @@ final class RecordPlayerViewController: UIViewController {
         
         recordPlayerTrackNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(40)
+            make.trailing.equalTo(additionalFeaturesButton.snp.leading).offset(-20)
             make.top.equalTo(recordPlayerTrackImageView.snp.bottom).offset(50)
         }
         

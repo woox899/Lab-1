@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D107D3D62B0624B7005F8DCD /* MainInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75B52AE81F89004F41CF /* MainInformationTableViewCell.swift */; };
+		D171A19D2B25B4C300A97CCD /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D171A19C2B25B4C300A97CCD /* APIService.swift */; };
 		D18C75A22AE6DAC8004F41CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75A12AE6DAC8004F41CF /* AppDelegate.swift */; };
 		D18C75A42AE6DAC8004F41CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75A32AE6DAC8004F41CF /* SceneDelegate.swift */; };
 		D18C75A62AE6DAC8004F41CF /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75A52AE6DAC8004F41CF /* RegistrationViewController.swift */; };
@@ -16,16 +17,21 @@
 		D18C75BA2AEB9822004F41CF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75B92AEB9822004F41CF /* Model.swift */; };
 		D18C75BC2AF11C39004F41CF /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D18C75BB2AF11C39004F41CF /* .gitignore */; };
 		D18E73132B0F3E4C005E0D6A /* TrackListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E73122B0F3E4C005E0D6A /* TrackListTableViewCell.swift */; };
-		D18E73162B0F3F82005E0D6A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D18E73152B0F3F82005E0D6A /* SnapKit */; };
-		D18E73182B0F3F82005E0D6A /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = D18E73172B0F3F82005E0D6A /* SnapKit-Dynamic */; };
 		D18E731C2B0F69D3005E0D6A /* RecordPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E731B2B0F69D3005E0D6A /* RecordPlayerViewController.swift */; };
 		D18E731E2B0FB955005E0D6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D18E731D2B0FB955005E0D6A /* Assets.xcassets */; };
+		D18E73252B19B57E005E0D6A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E73242B19B57E005E0D6A /* API.swift */; };
+		D18E73322B205B95005E0D6A /* TracksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E73312B205B95005E0D6A /* TracksModel.swift */; };
 		D18E928A2B022E080012BF14 /* EnterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E92892B022E080012BF14 /* EnterTableViewCell.swift */; };
 		D18E928C2B0258D20012BF14 /* UserDefaultsKyes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E928B2B0258D20012BF14 /* UserDefaultsKyes.swift */; };
 		D18E928E2B0262170012BF14 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E928D2B0262170012BF14 /* TrackListViewController.swift */; };
+		D7BCFF2D97CE123BEDF93DEE /* Pods_Lab_1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643CDD8331F986444367A7C7 /* Pods_Lab_1.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		041858889E61410EE779E499 /* Pods-Lab#1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lab#1.debug.xcconfig"; path = "Target Support Files/Pods-Lab#1/Pods-Lab#1.debug.xcconfig"; sourceTree = "<group>"; };
+		145970822EAB9C8E59D0DC92 /* Pods-Lab#1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lab#1.release.xcconfig"; path = "Target Support Files/Pods-Lab#1/Pods-Lab#1.release.xcconfig"; sourceTree = "<group>"; };
+		643CDD8331F986444367A7C7 /* Pods_Lab_1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lab_1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D171A19C2B25B4C300A97CCD /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		D18C759E2AE6DAC8004F41CF /* Lab#1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lab#1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18C75A12AE6DAC8004F41CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D18C75A32AE6DAC8004F41CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +45,8 @@
 		D18E73122B0F3E4C005E0D6A /* TrackListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListTableViewCell.swift; sourceTree = "<group>"; };
 		D18E731B2B0F69D3005E0D6A /* RecordPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPlayerViewController.swift; sourceTree = "<group>"; };
 		D18E731D2B0FB955005E0D6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D18E73242B19B57E005E0D6A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		D18E73312B205B95005E0D6A /* TracksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksModel.swift; sourceTree = "<group>"; };
 		D18E92892B022E080012BF14 /* EnterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterTableViewCell.swift; sourceTree = "<group>"; };
 		D18E928B2B0258D20012BF14 /* UserDefaultsKyes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKyes.swift; sourceTree = "<group>"; };
 		D18E928D2B0262170012BF14 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
@@ -49,19 +57,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D18E73162B0F3F82005E0D6A /* SnapKit in Frameworks */,
-				D18E73182B0F3F82005E0D6A /* SnapKit-Dynamic in Frameworks */,
+				D7BCFF2D97CE123BEDF93DEE /* Pods_Lab_1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12E73622F14E7CAA89E0C8C1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				041858889E61410EE779E499 /* Pods-Lab#1.debug.xcconfig */,
+				145970822EAB9C8E59D0DC92 /* Pods-Lab#1.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8F0E4438FF36BA7CEB8D7E09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				643CDD8331F986444367A7C7 /* Pods_Lab_1.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D18C75952AE6DAC8004F41CF = {
 			isa = PBXGroup;
 			children = (
 				D18C75A02AE6DAC8004F41CF /* Lab#1 */,
 				D18C759F2AE6DAC8004F41CF /* Products */,
+				12E73622F14E7CAA89E0C8C1 /* Pods */,
+				8F0E4438FF36BA7CEB8D7E09 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +112,7 @@
 				D18E928B2B0258D20012BF14 /* UserDefaultsKyes.swift */,
 				D18E73192B0F695F005E0D6A /* TrackListModule */,
 				D18E731A2B0F69AC005E0D6A /* RecordPlayerModule */,
+				D18E73262B19B58D005E0D6A /* NetworkService */,
 				D18C75BB2AF11C39004F41CF /* .gitignore */,
 				D18C75AC2AE6DAC9004F41CF /* LaunchScreen.storyboard */,
 				D18C75AF2AE6DAC9004F41CF /* Info.plist */,
@@ -111,6 +138,16 @@
 			path = RecordPlayerModule;
 			sourceTree = "<group>";
 		};
+		D18E73262B19B58D005E0D6A /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				D18E73242B19B57E005E0D6A /* API.swift */,
+				D171A19C2B25B4C300A97CCD /* APIService.swift */,
+				D18E73312B205B95005E0D6A /* TracksModel.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -118,19 +155,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D18C75B22AE6DAC9004F41CF /* Build configuration list for PBXNativeTarget "Lab#1" */;
 			buildPhases = (
+				A87407C62EF07B3C45D730CD /* [CP] Check Pods Manifest.lock */,
 				D18C759A2AE6DAC8004F41CF /* Sources */,
 				D18C759B2AE6DAC8004F41CF /* Frameworks */,
 				D18C759C2AE6DAC8004F41CF /* Resources */,
+				67A17FC720764F30882F6741 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Lab#1";
-			packageProductDependencies = (
-				D18E73152B0F3F82005E0D6A /* SnapKit */,
-				D18E73172B0F3F82005E0D6A /* SnapKit-Dynamic */,
-			);
 			productName = "Lab#1";
 			productReference = D18C759E2AE6DAC8004F41CF /* Lab#1.app */;
 			productType = "com.apple.product-type.application";
@@ -159,9 +194,6 @@
 				Base,
 			);
 			mainGroup = D18C75952AE6DAC8004F41CF;
-			packageReferences = (
-				D18E73142B0F3F82005E0D6A /* XCRemoteSwiftPackageReference "SnapKit" */,
-			);
 			productRefGroup = D18C759F2AE6DAC8004F41CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -184,6 +216,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		67A17FC720764F30882F6741 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lab#1/Pods-Lab#1-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lab#1/Pods-Lab#1-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Lab#1/Pods-Lab#1-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A87407C62EF07B3C45D730CD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Lab#1-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D18C759A2AE6DAC8004F41CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -194,11 +268,14 @@
 				D18E731C2B0F69D3005E0D6A /* RecordPlayerViewController.swift in Sources */,
 				D18C75B82AE82010004F41CF /* RulesTableViewCell.swift in Sources */,
 				D18E928A2B022E080012BF14 /* EnterTableViewCell.swift in Sources */,
+				D18E73322B205B95005E0D6A /* TracksModel.swift in Sources */,
 				D18E928C2B0258D20012BF14 /* UserDefaultsKyes.swift in Sources */,
 				D18C75A42AE6DAC8004F41CF /* SceneDelegate.swift in Sources */,
+				D171A19D2B25B4C300A97CCD /* APIService.swift in Sources */,
 				D107D3D62B0624B7005F8DCD /* MainInformationTableViewCell.swift in Sources */,
 				D18E928E2B0262170012BF14 /* TrackListViewController.swift in Sources */,
 				D18C75BA2AEB9822004F41CF /* Model.swift in Sources */,
+				D18E73252B19B57E005E0D6A /* API.swift in Sources */,
 				D18E73132B0F3E4C005E0D6A /* TrackListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,7 +331,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -317,7 +394,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -338,6 +415,7 @@
 		};
 		D18C75B32AE6DAC9004F41CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 041858889E61410EE779E499 /* Pods-Lab#1.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -367,6 +445,7 @@
 		};
 		D18C75B42AE6DAC9004F41CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 145970822EAB9C8E59D0DC92 /* Pods-Lab#1.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -416,30 +495,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		D18E73142B0F3F82005E0D6A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.6.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		D18E73152B0F3F82005E0D6A /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D18E73142B0F3F82005E0D6A /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		D18E73172B0F3F82005E0D6A /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D18E73142B0F3F82005E0D6A /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D18C75962AE6DAC8004F41CF /* Project object */;
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class TrackListTableViewCell: UITableViewCell {
     
@@ -60,8 +61,16 @@ final class TrackListTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func configure(track: TracksModel) {
+        trackNameLabel.text = track.name
+        performerNameLabel.text = track.artistName
+        if let trackImage = track.image, let imageURL = URL(string: trackImage) {
+            trackSmallImageView.kf.setImage(with: imageURL)
+        }
+    }
     
-    func setupUI() {
+    private func setupUI() {
         contentView.addSubview(trackSmallImageView)
         contentView.addSubview(trackNameLabel)
         contentView.addSubview(performerNameLabel)
@@ -77,6 +86,7 @@ final class TrackListTableViewCell: UITableViewCell {
         
         trackNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(trackSmallImageView.snp.trailing).offset(20)
+            make.trailing.equalTo(downloadButton.snp.leading).offset(-20)
             make.top.equalTo(contentView.snp.top).offset(15)
         }
         
