@@ -32,7 +32,7 @@ extension GetMusick: TargetType {
     var task: Moya.Task {
         switch self {
         case .tracks(let clientId):
-            return .requestParameters(parameters: ["client_id" : clientId, "limit" : "30", "vocalinstrumental" : "instrumental"], encoding: URLEncoding.queryString)
+            return .requestParameters(parameters: ["client_id" : clientId, "limit" : "30", "vocalinstrumental" : "vocal"], encoding: URLEncoding.queryString)
         }
     }
     

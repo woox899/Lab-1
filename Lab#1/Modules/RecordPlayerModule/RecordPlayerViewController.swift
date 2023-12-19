@@ -13,17 +13,13 @@ final class RecordPlayerViewController: UIViewController {
     
     private var tracks: [TracksModel]
     private var currentIndex: Int
-
-    private var player: AVAudioPlayer?
+    private var player: AVPlayer?
     private var isPlaying = true
-    private var currentTime: TimeInterval = 0.0
-    private var totalTime: TimeInterval = 0.0
     private var playPauseIsTap = true
     
     private let recordPlayerTrackImageView: UIImageView = {
         let recordPlayerTrackImageView = UIImageView()
         recordPlayerTrackImageView.backgroundColor = .white
-        recordPlayerTrackImageView.translatesAutoresizingMaskIntoConstraints = false
         recordPlayerTrackImageView.layer.cornerRadius = 10
         recordPlayerTrackImageView.clipsToBounds = true
         return recordPlayerTrackImageView
@@ -31,7 +27,6 @@ final class RecordPlayerViewController: UIViewController {
     
     private let recordPlayerTrackNameLabel: UILabel = {
         let recordPlayerTrackNameLabel = UILabel()
-        recordPlayerTrackNameLabel.translatesAutoresizingMaskIntoConstraints = false
         recordPlayerTrackNameLabel.font = UIFont.systemFont(ofSize: 28, weight: .heavy)
         recordPlayerTrackNameLabel.textColor = .white
         return recordPlayerTrackNameLabel
@@ -39,25 +34,25 @@ final class RecordPlayerViewController: UIViewController {
     
     private let recordPlayerPerformerNameLabel: UILabel = {
         let recordPlayerPerformerNameLabel = UILabel()
-        recordPlayerPerformerNameLabel.translatesAutoresizingMaskIntoConstraints = false
         recordPlayerPerformerNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .light)
         recordPlayerPerformerNameLabel.textColor = .white
         return recordPlayerPerformerNameLabel
     }()
     
-    private let trackSlider: UISlider = {
+    private lazy var trackSlider: UISlider = {
         let trackSlider = UISlider()
-        trackSlider.translatesAutoresizingMaskIntoConstraints = false
         trackSlider.minimumTrackTintColor = .darkGray
         trackSlider.maximumTrackTintColor = .darkGray
         trackSlider.thumbTintColor = .gray
+        trackSlider.minimumValue = 0.0
+        trackSlider.maximumValue = 1.0
+        trackSlider.addTarget(self, action: #selector(changeSlider), for: .valueChanged)
         return trackSlider
     }()
     
     private lazy var playPauseButton: UIButton = {
         let playPauseButton = UIButton()
-        playPauseButton.translatesAutoresizingMaskIntoConstraints = false
-        playPauseButton.setImage(UIImage(systemName: isPlaying ? "pause.fill" : "play.fill"), for: .normal)
+        playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         playPauseButton.addTarget(self, action: #selector(playPauseButtonIsTap), for: .touchUpInside)
         playPauseButton.tintColor = .white
         playPauseButton.imageView?.contentMode = .scaleAspectFit
@@ -66,31 +61,30 @@ final class RecordPlayerViewController: UIViewController {
         return playPauseButton
     }()
     
-    private let backwardButton: UIButton = {
+    private lazy var backwardButton: UIButton = {
         let backwardButton = UIButton()
-        backwardButton.translatesAutoresizingMaskIntoConstraints = false
         backwardButton.setImage(UIImage(systemName: "backward.fill"), for: .normal)
         backwardButton.tintColor = .white
         backwardButton.imageView?.contentMode = .scaleAspectFit
         backwardButton.contentVerticalAlignment = .fill
         backwardButton.contentHorizontalAlignment = .fill
+        backwardButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
         return backwardButton
     }()
     
-    private let forwardButton: UIButton = {
+    private lazy var forwardButton: UIButton = {
         let forwardButton = UIButton()
-        forwardButton.translatesAutoresizingMaskIntoConstraints = false
         forwardButton.setImage(UIImage(systemName: "forward.fill"), for: .normal)
         forwardButton.tintColor = .white
         forwardButton.imageView?.contentMode = .scaleAspectFit
         forwardButton.contentVerticalAlignment = .fill
         forwardButton.contentHorizontalAlignment = .fill
+        forwardButton.addTarget(self, action: #selector(forwardTapped), for: .touchUpInside)
         return forwardButton
     }()
     
     private let additionalFeaturesButton: UIButton = {
         let additionalFeaturesButton = UIButton()
-        additionalFeaturesButton.translatesAutoresizingMaskIntoConstraints = false
         additionalFeaturesButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
         additionalFeaturesButton.imageView?.contentMode = .scaleAspectFit
         additionalFeaturesButton.tintColor = .white
@@ -101,7 +95,6 @@ final class RecordPlayerViewController: UIViewController {
     
     private let leftTimeLabel: UILabel = {
         let leftTimeLabel = UILabel()
-        leftTimeLabel.text = "0:00"
         leftTimeLabel.textColor = .lightGray
         leftTimeLabel.font = UIFont.systemFont(ofSize: 15)
         return leftTimeLabel
@@ -109,7 +102,6 @@ final class RecordPlayerViewController: UIViewController {
     
     private let rightTimeLabel: UILabel = {
         let rightTimeLabel = UILabel()
-        rightTimeLabel.text = "0:00"
         rightTimeLabel.textColor = .lightGray
         rightTimeLabel.font = UIFont.systemFont(ofSize: 15)
         return rightTimeLabel
@@ -117,7 +109,6 @@ final class RecordPlayerViewController: UIViewController {
     
     private let swipeView: UIView = {
         let swipeView = UIView()
-        swipeView.translatesAutoresizingMaskIntoConstraints = false
         swipeView.backgroundColor = UIColor(red: 68/255, green: 68/255, blue: 70/255, alpha: 1)
         swipeView.layer.cornerRadius = 2.5
         return swipeView
@@ -128,7 +119,6 @@ final class RecordPlayerViewController: UIViewController {
         setupUI()
         configure()
         setupAudio()
-        view.backgroundColor = UIColor(red: 47/255, green: 47/255, blue: 49/255, alpha: 1)
     }
     
     init(tracks: [TracksModel], currentIndex: Int) {
@@ -152,43 +142,105 @@ final class RecordPlayerViewController: UIViewController {
     
     private func setupAudio() {
         let track = tracks[currentIndex]
-        guard let url = Bundle.main.url(forResource: track.audio, withExtension: "mp3")
-        else {
+        guard let urlString = track.audio, let url = URL(string: urlString) else {
             return
         }
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.prepareToPlay()
-            totalTime = player?.duration ?? 0.0
-        } catch {
-            print("Errir loading audio: \(error)")
-        }
+        
+        let playerItem = AVPlayerItem(url: url)
+        guard let player = try? AVPlayer(playerItem: playerItem) else { return }
+        player.volume = 1.0
+        self.player = player
+        playAudio()
     }
     
     private func playAudio() {
         player?.play()
         isPlaying = true
-        print("Playing")
+        updateAudioPlayerSlider()
     }
     
     private func stopAudio() {
         player?.pause()
         isPlaying = false
-        print("Paused")
     }
     
     @objc func playPauseButtonIsTap() {
         playPauseIsTap.toggle()
         if playPauseIsTap {
             playAudio()
-            print("isPlayinfTrue")
+            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         } else {
             stopAudio()
-            print("isPlayinfFalse")
+            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
     }
     
+    @objc private func forwardTapped() {
+        nextTrack(isForward: true)
+    }
+    
+    @objc private func backTapped() {
+        nextTrack(isForward: false)
+    }
+    
+    private func nextTrack(isForward: Bool) {
+        if isForward {
+            currentIndex += 1
+        } else {
+            currentIndex -= 1
+        }
+        configure()
+        setupAudio()
+        //MARK: - Надо решить с кнопкой
+        playPauseButtonIsTap()
+    }
+    
+    func updateAudioPlayerSlider() {
+        guard let player, isPlaying else { return }
+        let currentTimeInSeconds = CMTimeGetSeconds(player.currentTime())
+        let mins = currentTimeInSeconds / 60
+        let secs = currentTimeInSeconds.truncatingRemainder(dividingBy: 60)
+        let timeformatter = NumberFormatter()
+        timeformatter.minimumIntegerDigits = 2
+        timeformatter.minimumFractionDigits = 0
+        timeformatter.roundingMode = .down
+        guard let minsStr = timeformatter.string(from: NSNumber(value: mins)), let secsStr = timeformatter.string(from: NSNumber(value: secs)) else { return
+        }
+        
+        leftTimeLabel.text = "\(minsStr):\(secsStr)"
+        if let currentItem = player.currentItem {
+            let duration = currentItem.duration
+            if (CMTIME_IS_INVALID(duration)) {
+                return
+            }
+            let currentTime = currentItem.currentTime()
+            trackSlider.value = Float(CMTimeGetSeconds(currentTime) / CMTimeGetSeconds(duration))
+            let durationTimeInSeconds = CMTimeGetSeconds(duration) - CMTimeGetSeconds(player.currentTime())
+            if durationTimeInSeconds >= 0 {
+                let durMins = durationTimeInSeconds / 60
+                let durSec = durationTimeInSeconds.truncatingRemainder(dividingBy: 60)
+                guard let minsDurStr = timeformatter.string(from: NSNumber(value: durMins)), let secsDurStr = timeformatter.string(from: NSNumber(value: durSec)) else { return
+                }
+                rightTimeLabel.text = " - \(minsDurStr):\(secsDurStr)"
+            } else {
+                rightTimeLabel.text = " - 00:00"
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                self?.updateAudioPlayerSlider()
+            }
+        }
+    }
+    
+    @objc func changeSlider() {
+        guard let duration = player?.currentItem?.duration else { return }
+        let currentTimeSliderPosition = Float(CMTimeGetSeconds(duration)) * trackSlider.value
+        player?.seek(to: CMTime(value: CMTimeValue(currentTimeSliderPosition), timescale: 1))
+    }
+    
     private func setupUI() {
+        view.backgroundColor = UIColor(red: 47/255, green: 47/255, blue: 49/255, alpha: 1)
+        
         view.addSubview(recordPlayerTrackImageView)
         view.addSubview(recordPlayerTrackNameLabel)
         view.addSubview(recordPlayerPerformerNameLabel)
@@ -202,8 +254,8 @@ final class RecordPlayerViewController: UIViewController {
         view.addSubview(swipeView)
         
         recordPlayerTrackImageView.snp.makeConstraints { make in
-            make.height.equalTo(350)
-            make.width.equalTo(350)
+            make.height.equalTo(view.frame.height / 3)
+            make.width.equalTo(recordPlayerTrackImageView.snp.height)
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(view.snp.top).offset(80)
         }
@@ -222,7 +274,8 @@ final class RecordPlayerViewController: UIViewController {
         trackSlider.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(recordPlayerPerformerNameLabel.snp.bottom).offset(30)
-            make.width.equalTo(350)
+            make.leading.equalTo(view.snp.leading).offset(30)
+            make.trailing.equalTo(view.snp.trailing).offset(-30)
             make.height.equalTo(23)
         }
         

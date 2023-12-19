@@ -15,7 +15,6 @@ final class TrackListTableViewCell: UITableViewCell {
     
     private let trackSmallImageView: UIImageView = {
         let trackImageView = UIImageView()
-        trackImageView.translatesAutoresizingMaskIntoConstraints = false
         trackImageView.layer.cornerRadius = 8
         trackImageView.clipsToBounds = true
         trackImageView.backgroundColor = .lightGray
@@ -24,17 +23,13 @@ final class TrackListTableViewCell: UITableViewCell {
     
     private let trackNameLabel: UILabel = {
         let trackNameLabel = UILabel()
-        trackNameLabel.translatesAutoresizingMaskIntoConstraints = false
         trackNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .light)
-        trackNameLabel.text = "Numb"
         return trackNameLabel
     }()
     
     private let performerNameLabel: UILabel = {
         let performerNameLabel = UILabel()
-        performerNameLabel.translatesAutoresizingMaskIntoConstraints = false
         performerNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        performerNameLabel.text = "Linkin Park"
         return performerNameLabel
     }()
     
@@ -55,13 +50,12 @@ final class TrackListTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func configure(track: TracksModel) {
         trackNameLabel.text = track.name
         performerNameLabel.text = track.artistName

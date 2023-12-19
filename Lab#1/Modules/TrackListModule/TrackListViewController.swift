@@ -39,7 +39,7 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         ]
     }
     
-    func setupUI() {
+    private func setupUI() {
         view.addSubview(trackListTableView)
     }
     
