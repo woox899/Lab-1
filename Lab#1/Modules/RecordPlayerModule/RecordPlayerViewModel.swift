@@ -11,6 +11,6 @@ protocol RecordPlayerViewModelProtocol: AnyObject {
     
 }
 
-class RecordPlayerViewModel: RecordPlayerViewModelProtocol {
+final class RecordPlayerViewModel: RecordPlayerViewModelProtocol {
     
 }

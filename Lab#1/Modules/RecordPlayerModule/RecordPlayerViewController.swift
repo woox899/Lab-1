@@ -15,8 +15,7 @@ final class RecordPlayerViewController: UIViewController {
     private var currentIndex: Int
     private var player: AVPlayer?
     private var isPlaying = true
-    private var playPauseIsTap = true
-    private var viewModel: TrackListViewModelProtocol
+    private let viewModel: TrackListViewModelProtocol
     
     private let recordPlayerTrackImageView: UIImageView = {
         let recordPlayerTrackImageView = UIImageView()
@@ -133,7 +132,7 @@ final class RecordPlayerViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure() {
+    private func configure() {
         let track = tracks[currentIndex]
         recordPlayerTrackNameLabel.text = track.name
         recordPlayerPerformerNameLabel.text = track.artistName
@@ -147,7 +146,6 @@ final class RecordPlayerViewController: UIViewController {
         guard let urlString = track.audio, let url = URL(string: urlString) else {
             return
         }
-        
         let playerItem = AVPlayerItem(url: url)
         guard let player = try? AVPlayer(playerItem: playerItem) else { return }
         player.volume = 1.0
@@ -159,21 +157,20 @@ final class RecordPlayerViewController: UIViewController {
         player?.play()
         isPlaying = true
         updateAudioPlayerSlider()
+        playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
     }
     
     private func stopAudio() {
         player?.pause()
         isPlaying = false
+        playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
     }
     
-    @objc func playPauseButtonIsTap() {
-        playPauseIsTap.toggle()
-        if playPauseIsTap {
-            playAudio()
-            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-        } else {
+    @objc private func playPauseButtonIsTap() {
+        if isPlaying {
             stopAudio()
-            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else {
+            playAudio()
         }
     }
     
@@ -194,10 +191,9 @@ final class RecordPlayerViewController: UIViewController {
         configure()
         setupAudio()
         //MARK: - Надо решить с кнопкой
-        playPauseButtonIsTap()
     }
     
-    func updateAudioPlayerSlider() {
+    private func updateAudioPlayerSlider() {
         guard let player, isPlaying else { return }
         let currentTimeInSeconds = CMTimeGetSeconds(player.currentTime())
         let mins = currentTimeInSeconds / 60
@@ -234,7 +230,7 @@ final class RecordPlayerViewController: UIViewController {
         }
     }
     
-    @objc func changeSlider() {
+    @objc private func changeSlider() {
         guard let duration = player?.currentItem?.duration else { return }
         let currentTimeSliderPosition = Float(CMTimeGetSeconds(duration)) * trackSlider.value
         player?.seek(to: CMTime(value: CMTimeValue(currentTimeSliderPosition), timescale: 1))

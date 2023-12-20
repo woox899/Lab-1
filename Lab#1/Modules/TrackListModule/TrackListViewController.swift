@@ -44,7 +44,7 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         configureNavigationBar()
     }
     
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         navigationController?.navigationBar.tintColor = UIColor(red: 222/255, green: 3/255, blue: 64/255, alpha: 1)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil),
@@ -57,7 +57,7 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         view.addSubview(trackListTableView)
     }
     
-    @objc func buttonLogout() {
+    @objc private func buttonLogout() {
         UserDefaults.standard.setValue(false, forKey: UserDefaultsKyes.isActiveSession)
         navigationController?.viewControllers = [RegistrationViewController()]
     }
