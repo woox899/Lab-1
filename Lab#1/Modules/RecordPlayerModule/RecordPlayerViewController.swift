@@ -16,6 +16,7 @@ final class RecordPlayerViewController: UIViewController {
     private var player: AVPlayer?
     private var isPlaying = true
     private var playPauseIsTap = true
+    private var viewModel: TrackListViewModelProtocol
     
     private let recordPlayerTrackImageView: UIImageView = {
         let recordPlayerTrackImageView = UIImageView()
@@ -121,9 +122,10 @@ final class RecordPlayerViewController: UIViewController {
         setupAudio()
     }
     
-    init(tracks: [TracksModel], currentIndex: Int) {
+    init(viewModel: TrackListViewModelProtocol, tracks: [TracksModel], currentIndex: Int) {
         self.tracks = tracks
         self.currentIndex = currentIndex
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     

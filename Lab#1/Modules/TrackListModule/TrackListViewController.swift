@@ -9,10 +9,14 @@ import UIKit
 import SnapKit
 import Moya
 
+protocol TrackListViewModelDelegate: AnyObject {
+    func updateTracks(tracks: [TracksModel])
+}
+
 final class TrackListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private let servive = APIService()
     private var tracks = [TracksModel]()
+    private var viewModel: TrackListViewModelProtocol
     
     private lazy var trackListTableView: UITableView = {
         let view = UITableView(frame: view.bounds, style: .plain)
@@ -23,11 +27,21 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
         return view
     }()
     
+    init(viewModel: TrackListViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
+        viewModel.getTracks()
         setupUI()
         configureNavigationBar()
-        getTracks()
     }
     
     func configureNavigationBar() {
@@ -66,19 +80,14 @@ final class TrackListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recordPlayerViewController = RecordPlayerViewController(tracks: tracks, currentIndex: indexPath.row)
+        let recordPlayerViewController = RecordPlayerViewController(viewModel: viewModel, tracks: tracks, currentIndex: indexPath.row)
         present(recordPlayerViewController, animated: true)
     }
-    
-    func getTracks() {
-        servive.getTracks() { [weak self] result in
-            switch result {
-            case .success(let tracks):
-                self?.tracks = tracks
-                self?.trackListTableView.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+}
+
+extension TrackListViewController: TrackListViewModelDelegate {
+    func updateTracks(tracks: [TracksModel]) {
+        self.tracks = tracks
+        trackListTableView.reloadData()
     }
 }

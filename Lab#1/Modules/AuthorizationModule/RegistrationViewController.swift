@@ -20,6 +20,8 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     private var passwordText: String?
     private var repeatPasswordText: String?
     
+    let viewModel: TrackListViewModelProtocol = TrackListViewModel()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
@@ -120,7 +122,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     private func login() {
         guard enteredLoginAndPasswordValid() else { return }
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
-        navigationController?.viewControllers = [TrackListViewController()]
+        navigationController?.viewControllers = [TrackListViewController(viewModel: viewModel)]
     }
     
     private func registerUser() {
@@ -131,7 +133,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         UserDefaults.standard.setValue(repeatPasswordText, forKey: UserDefaultsKyes.repeatPassword)
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isRegistered)
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
-        navigationController?.viewControllers = [TrackListViewController()]
+        navigationController?.viewControllers = [TrackListViewController(viewModel: viewModel)]
     }
     
     func showAlertMassage(_ alertMassage: String) {

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D107D3D62B0624B7005F8DCD /* MainInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75B52AE81F89004F41CF /* MainInformationTableViewCell.swift */; };
+		D17036DD2B32B0BA00465669 /* RecordPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17036DC2B32B0BA00465669 /* RecordPlayerViewModel.swift */; };
+		D17036DF2B32CFD900465669 /* TrackListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17036DE2B32CFD900465669 /* TrackListViewModel.swift */; };
 		D171A19D2B25B4C300A97CCD /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D171A19C2B25B4C300A97CCD /* APIService.swift */; };
 		D18C75A22AE6DAC8004F41CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75A12AE6DAC8004F41CF /* AppDelegate.swift */; };
 		D18C75A42AE6DAC8004F41CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C75A32AE6DAC8004F41CF /* SceneDelegate.swift */; };
@@ -31,6 +33,8 @@
 		041858889E61410EE779E499 /* Pods-Lab#1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lab#1.debug.xcconfig"; path = "Target Support Files/Pods-Lab#1/Pods-Lab#1.debug.xcconfig"; sourceTree = "<group>"; };
 		145970822EAB9C8E59D0DC92 /* Pods-Lab#1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lab#1.release.xcconfig"; path = "Target Support Files/Pods-Lab#1/Pods-Lab#1.release.xcconfig"; sourceTree = "<group>"; };
 		643CDD8331F986444367A7C7 /* Pods_Lab_1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lab_1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D17036DC2B32B0BA00465669 /* RecordPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPlayerViewModel.swift; sourceTree = "<group>"; };
+		D17036DE2B32CFD900465669 /* TrackListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewModel.swift; sourceTree = "<group>"; };
 		D171A19C2B25B4C300A97CCD /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		D18C759E2AE6DAC8004F41CF /* Lab#1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lab#1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18C75A12AE6DAC8004F41CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				D18E928D2B0262170012BF14 /* TrackListViewController.swift */,
+				D17036DE2B32CFD900465669 /* TrackListViewModel.swift */,
 				D18E73122B0F3E4C005E0D6A /* TrackListTableViewCell.swift */,
 			);
 			path = TrackListModule;
@@ -150,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				D18E731B2B0F69D3005E0D6A /* RecordPlayerViewController.swift */,
+				D17036DC2B32B0BA00465669 /* RecordPlayerViewModel.swift */,
 			);
 			path = RecordPlayerModule;
 			sourceTree = "<group>";
@@ -279,7 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D17036DF2B32CFD900465669 /* TrackListViewModel.swift in Sources */,
 				D18C75A62AE6DAC8004F41CF /* RegistrationViewController.swift in Sources */,
+				D17036DD2B32B0BA00465669 /* RecordPlayerViewModel.swift in Sources */,
 				D18C75A22AE6DAC8004F41CF /* AppDelegate.swift in Sources */,
 				D18E731C2B0F69D3005E0D6A /* RecordPlayerViewController.swift in Sources */,
 				D18C75B82AE82010004F41CF /* RulesTableViewCell.swift in Sources */,
