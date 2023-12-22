@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "forward.fill.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

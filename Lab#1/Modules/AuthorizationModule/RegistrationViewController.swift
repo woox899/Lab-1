@@ -20,6 +20,8 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     private var passwordText: String?
     private var repeatPasswordText: String?
     
+    let viewModel: TrackListViewModelProtocol = TrackListViewModel()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
@@ -54,7 +56,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         changeDataSourse()
     }
     
-    @objc func changeDataSourse() {
+    @objc private func changeDataSourse() {
         if segmentControl.selectedSegmentIndex == 0 {
             dataSourse = authorizationOptionsLoginArray
         }
@@ -120,7 +122,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
     private func login() {
         guard enteredLoginAndPasswordValid() else { return }
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
-        navigationController?.viewControllers = [MainViewController()]
+        navigationController?.viewControllers = [TrackListViewController(viewModel: viewModel)]
     }
     
     private func registerUser() {
@@ -131,28 +133,28 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         UserDefaults.standard.setValue(repeatPasswordText, forKey: UserDefaultsKyes.repeatPassword)
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isRegistered)
         UserDefaults.standard.setValue(true, forKey: UserDefaultsKyes.isActiveSession)
-        navigationController?.viewControllers = [MainViewController()]
+        navigationController?.viewControllers = [TrackListViewController(viewModel: viewModel)]
     }
     
-    func showAlertMassage(_ alertMassage: String) {
+    private func showAlertMassage(_ alertMassage: String) {
         let alertController = UIAlertController(title: "Ошибка", message: alertMassage, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "ОК", style: .default))
         self.present(alertController, animated: true)
     }
     
-    func emailValidation(_ email: String) -> Bool {
+    private func emailValidation(_ email: String) -> Bool {
         let emailRegExp: String = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegExp)
         return emailTest.evaluate(with: email)
     }
     
-    func passwordValidation(_ password: String) -> Bool {
+    private func passwordValidation(_ password: String) -> Bool {
         let passwordRegExp: String = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$"
         let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegExp)
         return passwordTest.evaluate(with: password)
     }
     
-    func allTextfieldsIsValid() -> Bool {
+    private func allTextfieldsIsValid() -> Bool {
         guard let emailText, let loginText, let passwordText, let repeatPasswordText else {
             showAlertMassage("Поля не заполнены!")
             return false
@@ -176,7 +178,7 @@ final class RegistrationViewController: UIViewController, UITableViewDataSource,
         return true
     }
     
-    func enteredLoginAndPasswordValid() -> Bool {
+    private func enteredLoginAndPasswordValid() -> Bool {
         guard let loginToBeEntered = UserDefaults.standard.string(forKey: UserDefaultsKyes.login),
               !loginToBeEntered.isEmpty,
               loginToBeEntered == loginText else {

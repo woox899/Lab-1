@@ -42,7 +42,7 @@ final class MainInformationTableViewCell: UITableViewCell, UITextFieldDelegate {
         self.type = type
     }
     
-    func setupUI() {
+    private func setupUI() {
         contentView.addSubview(textfield)
     }
     
